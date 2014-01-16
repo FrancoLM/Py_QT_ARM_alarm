@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+
+#===============================================================================
+# Va a entrar en desuso cuando modularice todo
+#===============================================================================
 import sys
 from PyQt4 import QtGui
 from PyQt4 import QtCore
@@ -57,18 +61,18 @@ class Python_serial(object):
                 #Borrar esto cuando se conecte!!!!
                 #cola = Queue(10)
                 print "entro aca... esta mal"
-#                 while True:
-#                     valor = random.randint(0, 45)
-#      
-#                     try:
-#                         self.cola.put_nowait(valor)
-#      
-#                     except Exception, e:
-#                         self.cola.get_nowait()
-#                         self.cola.put_nowait(valor)
-#                     #print "el valor en la cola es:", list(self.cola.queue)
-#                     time.sleep(0.5)
-                #Borrar cuando estemos conectados!! Por las dudas (aunque es poco probable que entremos aca)
+                while True:
+                    valor = random.randint(0, 45)
+      
+                    try:
+                        self.cola.put_nowait(valor)
+      
+                    except Exception, e:
+                        self.cola.get_nowait()
+                        self.cola.put_nowait(valor)
+                     #print "el valor en la cola es:", list(self.cola.queue)
+                    time.sleep(0.5)
+               #Borrar cuando estemos conectados!! Por las dudas (aunque es poco probable que entremos aca)
     
     def get_cola(self):
         return list(self.cola.queue)
