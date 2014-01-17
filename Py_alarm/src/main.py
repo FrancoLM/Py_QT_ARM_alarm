@@ -28,7 +28,7 @@ class Python_serial(object):
     
     def __init__(self):
         super(Python_serial, self).__init__()
-        self.cola = Queue(10)
+        self.cola = Queue(20)
         
     
     def read_port(self):
@@ -62,7 +62,7 @@ class Python_serial(object):
                 #cola = Queue(10)
                 print "entro aca... esta mal"
                 while True:
-                    valor = random.randint(0, 45)
+                    valor = random.randint(0, 25)
       
                     try:
                         self.cola.put_nowait(valor)
@@ -71,7 +71,7 @@ class Python_serial(object):
                         self.cola.get_nowait()
                         self.cola.put_nowait(valor)
                      #print "el valor en la cola es:", list(self.cola.queue)
-                    time.sleep(0.5)
+                    time.sleep(0.1)
                #Borrar cuando estemos conectados!! Por las dudas (aunque es poco probable que entremos aca)
     
     def get_cola(self):
