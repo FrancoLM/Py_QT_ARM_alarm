@@ -9,8 +9,8 @@ import sys
  
 # Import the core and GUI elements of Qt
 #Change PyQt4 for PySide...
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PySide.QtCore import *
+from PySide.QtGui import *
  
 # Every Qt application must have one and only one QApplication object;
 # it receives the command line arguments passed to the script, as they
@@ -25,3 +25,10 @@ label.show()
  
 # Run the application's event loop
 qt_app.exec_()
+
+'''
+import matplotlib.pyplot as plt
+plt.plot([1,2,3,4], [1,4,9,16], 'ro')
+plt.axis([0, 6, 0, 20])
+plt.show()
+'''

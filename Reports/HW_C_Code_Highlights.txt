@@ -1,0 +1,11 @@
+El HW es bidireccional. Entrega los valores de temperatura pero también recibe el valor de alarma.
+Siempre está censando temperatura, y siempre está comparando así sabe cuándo sonar la alarma.
+Los métodos del HW serían:
+
+Interrupción Systick_Handler: cada x tiempo mide temperatura: lee el ADC. Guarda el valor censado. Comprueba que no sea mayor que el límite de alarma. Le envía el valor a la PC.
+
+get_valor_limite alarma: lee el valor de alarma del puerto. La PC se lo tiene que enviar.
+	Cómo le digo que escuche? Con una Interrupción!
+
+
+
