@@ -19,10 +19,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-#-------------------
-import time
-
-
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
@@ -32,7 +28,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.setFixedSize(self.width(), self.height())
         
-        
+        #=======================================================================
+        #  Add the plot to the main window
+        #=======================================================================
         self.add_plot()
         
         
@@ -44,6 +42,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
         #=======================================================================
         #=======================================================================
+    
+    #===========================================================================
+    #===========================================================================
+    # # 
+    #===========================================================================
+    #===========================================================================
     
     def add_plot(self):
         '''
@@ -58,6 +62,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.canvas = FigureCanvas(self.figure)
         
         #Add a timer to redraw the graph
+        #The timer is not optimal, and this should run on a separate thread.
+        #The graph should be updated on demand... each time a new value is read from the serial port...
         self.plot_timer = self.canvas.new_timer(interval=100)
         self.plot_timer.add_callback(self.redraw_graph)
         
@@ -76,6 +82,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #self.redraw_graph()
         
         ###########
+        
+        #self.redraw_graph()
         self.plot_timer.start()
         
     def redraw_graph(self):
@@ -83,12 +91,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         This method redraws the graph. It's called everytime the plot_timer
         reaches zero.
         '''
-        print "I enter here..."
+        
         mu, sigma = 100, 15
         x = mu + sigma * np.random.randn(1000)
+        #print "I enter here... x =", x
         
         # the histogram of the data
-        n, bins, patches = plt.hist(x, 50, normed=1, facecolor='g', alpha=0.75)
+        #x should be my queue...
+        n, bins, patches = plt.hist(x, 50, normed=1, facecolor='b', alpha=0.75)
         
         
         plt.xlabel('Smarts')
@@ -97,8 +107,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #plt.text(60, .025, r'$\mu=100,\ \sigma=15$')
         plt.axis([40, 160, 0, 0.03])
         plt.grid(True)
-        plt.draw()
+        
+        #I erase the old data graph, because I'm redrawing it with new values.
+        plt.hold(False)
+        
+        #Re-draw the graph (with the new values)
+        self.canvas.draw()
         #plt.show()
+        
+        '''# random data
+        data = self.get_cola()
+        #data = [10,17,30,22,6,3,34,24,15]
+        #random.random() for i in range(10)
+        # create an axis
+        ax = self.figure.add_subplot(111)
+
+        # discards the old graph
+        ax.hold(False)'''
     
     
     def quit_application(self):
