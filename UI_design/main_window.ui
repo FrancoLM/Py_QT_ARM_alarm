@@ -76,7 +76,7 @@ QFrame{
        <string notr="true">color: rgb(68, 68, 68);</string>
       </property>
       <property name="text">
-       <string>Temperatura en el Tiempo</string>
+       <string>Gráfico de Temperaturas</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -123,16 +123,16 @@ QFrame{
      <widget class="QLabel" name="current_temp_value">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>0</x>
         <y>30</y>
-        <width>101</width>
+        <width>111</width>
         <height>91</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <family>Tw Cen MT Condensed</family>
-        <pointsize>70</pointsize>
+        <family>Trebuchet MS</family>
+        <pointsize>72</pointsize>
         <weight>50</weight>
         <italic>false</italic>
         <bold>false</bold>
@@ -150,7 +150,7 @@ QFrame{
        <string notr="true">color: rgb(68, 68, 68);</string>
       </property>
       <property name="text">
-       <string>12</string>
+       <string>8</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -184,19 +184,19 @@ QFrame{
      <widget class="QLabel" name="degree_label">
       <property name="geometry">
        <rect>
-        <x>120</x>
+        <x>110</x>
         <y>30</y>
-        <width>31</width>
+        <width>41</width>
         <height>91</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <family>Tw Cen MT Condensed</family>
-        <pointsize>70</pointsize>
-        <weight>50</weight>
+        <family>Arial</family>
+        <pointsize>72</pointsize>
+        <weight>75</weight>
         <italic>false</italic>
-        <bold>false</bold>
+        <bold>true</bold>
         <strikeout>false</strikeout>
         <stylestrategy>PreferDefault</stylestrategy>
        </font>
@@ -214,9 +214,12 @@ QFrame{
        <string>°</string>
       </property>
       <property name="alignment">
-       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
       </property>
      </widget>
+     <zorder>current_temp_label</zorder>
+     <zorder>degree_label</zorder>
+     <zorder>current_temp_value</zorder>
     </widget>
     <widget class="QFrame" name="max_temp_frame">
      <property name="geometry">
@@ -236,16 +239,16 @@ QFrame{
      <widget class="QLabel" name="max_temp_value">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>0</x>
         <y>20</y>
-        <width>101</width>
+        <width>111</width>
         <height>101</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <family>Tw Cen MT Condensed</family>
-        <pointsize>70</pointsize>
+        <family>Trebuchet MS</family>
+        <pointsize>72</pointsize>
         <weight>50</weight>
         <italic>false</italic>
         <bold>false</bold>
@@ -345,18 +348,18 @@ QToolButton:active {
       <property name="geometry">
        <rect>
         <x>110</x>
-        <y>30</y>
+        <y>20</y>
         <width>41</width>
-        <height>91</height>
+        <height>101</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <family>Tw Cen MT Condensed</family>
-        <pointsize>70</pointsize>
-        <weight>50</weight>
+        <family>Arial</family>
+        <pointsize>72</pointsize>
+        <weight>75</weight>
         <italic>false</italic>
-        <bold>false</bold>
+        <bold>true</bold>
         <strikeout>false</strikeout>
         <stylestrategy>PreferDefault</stylestrategy>
        </font>
@@ -374,13 +377,13 @@ QToolButton:active {
        <string>°</string>
       </property>
       <property name="alignment">
-       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
       </property>
      </widget>
      <zorder>max_temp_label</zorder>
      <zorder>degree_label_2</zorder>
-     <zorder>max_temp_value</zorder>
      <zorder>set_max_temp_button</zorder>
+     <zorder>max_temp_value</zorder>
     </widget>
     <widget class="QLabel" name="title_label">
      <property name="geometry">
