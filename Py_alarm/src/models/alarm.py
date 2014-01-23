@@ -46,3 +46,6 @@ class Alarm(object):
     
     def _is_alarm(self):
         return self._alarm_status
+    
+    
+    

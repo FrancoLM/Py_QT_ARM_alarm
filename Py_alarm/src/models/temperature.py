@@ -39,17 +39,17 @@ class Temperature(object):
             raise TempNotSetError("Temperature was not initialized")
 
 
-class Max_Temp(Temperature):
+class Max_temp(Temperature):
     
     def __init__(self):
-        super(Max_Temp, self).__init__()
+        super(Max_temp, self).__init__()
         
         
 
-class Current_Temp(Temperature):
+class Current_temp(Temperature):
     
     def __init__(self):
-        super(Current_Temp, self).__init__()
+        super(Current_temp, self).__init__()
 
 
 if __name__ == "__main__":

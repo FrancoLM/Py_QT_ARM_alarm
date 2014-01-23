@@ -8,7 +8,7 @@ Created on Jan 17, 2014
 '''
 #[Do I need the imports?]
 from alarm import Alarm
-from temperature import Current_Temp, Max_Temp
+from temperature import Current_temp, Max_temp
 
 class App_Logic(object):
     
@@ -22,12 +22,13 @@ class App_Logic(object):
         if self.current_temp.get_temperature() >= self.max_temp.get_temperature():
             self.alarm_turn_on()
             
-        
-    #turn on and off should be private?
+    
+    #===========================================================================
     def alarm_turn_off(self):
         #Signal to stop alarm
         self.alarm.set_alarm_status(False)
-        
+    
+    #===========================================================================
     def alarm_turn_on(self):
         #Signal to sound alarm
         self.alarm.set_alarm_status(True)

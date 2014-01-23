@@ -8,7 +8,7 @@ import serial
 
 #===============================================================================
 #===============================================================================
-class Serial_Communication(object):
+class Serial_communication(object):
     '''
     classdocs
     '''
@@ -21,7 +21,7 @@ class Serial_Communication(object):
         '''
         Constructor
         '''
-        super(Serial_Communication, self).__init__()
+        super(Serial_communication, self).__init__()
         self.port_number = port_number
         self._establish_serial_connection()
         
@@ -77,7 +77,7 @@ class Serial_Communication(object):
 
 
 if __name__ == '__main__':
-    comm = Serial_Communication(port_number = 17)
+    comm = Serial_communication(port_number = 17)
     #comm.establish_serial_connection()
     print "value read:", comm.read_from_port()
     #print "value read:", comm.read_from_port()
