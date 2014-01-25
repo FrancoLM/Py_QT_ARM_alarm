@@ -9,7 +9,7 @@ import sys
 from PySide.QtGui import QMainWindow, QApplication
 from main_window_gui import Ui_MainWindow
 
-from temperature_plot import Temp_graph
+from temperature_plot import Temperature_graph
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -24,7 +24,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #=======================================================================
         #  Add the plot to the main window
         #=======================================================================
-        self.figure = Temp_graph()
+        self.figure = Temperature_graph()
         #Set the canvas to the Main Window frame to that of the figure
         self.frame.setLayout(self.figure.get_layout())
         
@@ -43,7 +43,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     #===========================================================================
     #===========================================================================
     
-    
+    def set_queue(self, temperature_queue):
+        '''
+        This method is called by the Controller.
+        It connects the Model queue to the View so the View
+        can plot it in a graph.
+        '''
+        self.figure.set_graph_queue(temperature_queue)
     
     
     def quit_application(self):
@@ -58,6 +64,7 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
 
     main = MainWindow()
+    main.set_queue(temperature_queue = None)
     
     main.show()
     

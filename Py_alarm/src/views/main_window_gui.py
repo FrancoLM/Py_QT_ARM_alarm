@@ -242,7 +242,7 @@ class Ui_MainWindow(object):
         self.title_label.setText(QtGui.QApplication.translate("MainWindow", "   Monitor de Temperaturas", None, QtGui.QApplication.UnicodeUTF8))
         self.menuFile.setTitle(QtGui.QApplication.translate("MainWindow", "Archivo", None, QtGui.QApplication.UnicodeUTF8))
         self.menuHelp.setTitle(QtGui.QApplication.translate("MainWindow", "Ayuda", None, QtGui.QApplication.UnicodeUTF8))
-        self.action_about.setText(QtGui.QApplication.translate("MainWindow", "About...", None, QtGui.QApplication.UnicodeUTF8))
+        self.action_about.setText(QtGui.QApplication.translate("MainWindow", "Acerca de...", None, QtGui.QApplication.UnicodeUTF8))
         self.action_save_temperature_chart.setText(QtGui.QApplication.translate("MainWindow", "Guardar historial de Temperaturas", None, QtGui.QApplication.UnicodeUTF8))
         self.action_save_temperature_chart.setShortcut(QtGui.QApplication.translate("MainWindow", "Ctrl+S", None, QtGui.QApplication.UnicodeUTF8))
         self.action_app_tutorial.setText(QtGui.QApplication.translate("MainWindow", "Cómo utilizar la aplicación...", None, QtGui.QApplication.UnicodeUTF8))

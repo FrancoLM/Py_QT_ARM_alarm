@@ -15,10 +15,8 @@ matplotlib.rcParams['backend.qt4']='PySide'
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
 
-from models.temperature_queue import Temp_queue
 
-
-class Temp_graph():
+class Temperature_graph():
 
     def __init__(self):
         '''
@@ -27,7 +25,7 @@ class Temp_graph():
         The graph redrawing should be handled by a thread other than the main one.
         '''
         
-        self.queue = Temp_queue()
+        #self.queue = temp_queue
         #t = threading.Thread(target = self.queue.read_port)
         #t.daemon = True
         #t.start()
@@ -41,8 +39,8 @@ class Temp_graph():
         #Add a timer to redraw the graph
         #The timer is not optimal, and this should run on a separate thread.
         #The graph should be updated on demand... each time a new value is read from the serial port...
-        self.plot_timer = self.canvas.new_timer(interval=100)
-        self.plot_timer.add_callback(self.redraw_graph)
+        #self.plot_timer = self.canvas.new_timer(interval=100)
+        #self.plot_timer.add_callback(self.redraw_graph)
         
         
         #Create the layout for the frame
@@ -55,7 +53,10 @@ class Temp_graph():
         
         
         #self.redraw_graph()
-        self.plot_timer.start()
+        #self.plot_timer.start()
+    
+    def set_graph_queue(self, temperature_queue):
+        self.queue = temperature_queue
     
     def get_layout(self):
         return self.layout

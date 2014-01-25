@@ -27,6 +27,7 @@ class Alarm(object):
         if status:
             self._alarm_status = status
             self._activate_alarm()
+            print "Alarm activated!!!"
         else:
             if self._is_alarm():
                 self._deactivate_alarm()

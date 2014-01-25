@@ -4,26 +4,34 @@ Created on Jan 16, 2014
 @author: fmartinez1
 '''
 import serial
-
+import random
+import time
+import threading
+from PySide.QtCore import Signal, QObject
 
 #===============================================================================
 #===============================================================================
-class Serial_communication(object):
+class Serial_communication(QObject):
     '''
-    classdocs
+    If Serial_communication is Not a QObject, then the Signals and Slots
+    do not work...
     '''
     
     #Neccesary??? I think not...
     ser = None
     port_number = 99
+    value_read = None
     
-    def __init__(self, port_number):
+    value_read_signal = Signal()
+    
+    def __init__(self, port_number, app_logic):
         '''
         Constructor
         '''
         super(Serial_communication, self).__init__()
         self.port_number = port_number
         self._establish_serial_connection()
+        self.app_logic = app_logic
         
     
     #===========================================================================
@@ -50,8 +58,14 @@ class Serial_communication(object):
     #===========================================================================
     def read_from_port(self):
         '''
-        This method read a '\n' terminated line
+        This method reads a '\n' terminated line.
+        After reading it, it notifies the app logic object, so it saves this
+        value as the new current temperature value, and queues it in the temperature queue, 
+        so it can be displayed in the UI graph.
+        It emits the signal value_read_signal. The controller handles that signal.
         '''
+        '''
+        #Uncomment this when the HW - PC communication works
         try:            
             line = self.ser.readline()   # read a '\n' terminated line
             return line
@@ -60,7 +74,22 @@ class Serial_communication(object):
             
             print "Could not read from port.", e
             return None
+        '''
+        while True:
             
+            self.value_read = random.randint(5, 35)
+            self.value_read_signal.emit()
+            print "I'm reading...", self.value_read, "and signal emmited"
+            try:
+                self.app_logic.update_current_temp(self.value_read)
+            except Exception, e:
+                print "App is none"
+            time.sleep(1)
+    
+    
+    #===========================================================================
+    def get_value_read(self):
+        return self.value_read
             
     #===========================================================================
     def close_port(self):
@@ -77,9 +106,18 @@ class Serial_communication(object):
 
 
 if __name__ == '__main__':
-    comm = Serial_communication(port_number = 17)
+    comm = Serial_communication(port_number = 17, app_logic = None)
     #comm.establish_serial_connection()
-    print "value read:", comm.read_from_port()
+    
     #print "value read:", comm.read_from_port()
     
+    t = threading.Thread(target = comm.read_from_port)
+    t.daemon = True
+    print "about to start..."
+    t.start()
+    print "started..."
+    print "value read:", comm.get_value_read()
+    
+    while True:
+        pass
     comm.close_port()

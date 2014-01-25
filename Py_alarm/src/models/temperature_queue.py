@@ -10,18 +10,18 @@ import time
 
 class Temp_queue(object):
     
-    def __init__(self):
+    def __init__(self, queue_size):
         super(Temp_queue, self).__init__()
-        self.cola = Queue.Queue(20)
+        self.cola = Queue.Queue(queue_size)
         
-    def put_in_queue(self, temp_value):
-        
+    def put_in_queue(self, temperature_value):
+        print "Im saving", temperature_value, "in the queue..."
         try:
-            self.cola.put_nowait(temp_value) #add the element in the queue
+            self.cola.put_nowait(temperature_value) #add the element in the queue
         
         except Exception, e:
             self.cola.get_nowait()  #takes an element out of the queue
-            self.cola.put_nowait(temp_value)
+            self.cola.put_nowait(temperature_value)
     
     
     def get_cola(self):
