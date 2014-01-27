@@ -12,6 +12,8 @@ from temperature import Current_temp, Max_temp
 from temperature_queue import Temp_queue
 from models.serial_communication import Serial_communication
 import threading
+#from PySide.QtCore import QObject
+
 
 class App_model(object):
     '''
@@ -31,18 +33,20 @@ class App_model(object):
         self.current_temp = Current_temp()
         self.temp_queue = Temp_queue(queue_size = 20)
         
-        self.max_temp.set_temperature(initial_max_temp)
+        self.max_temp.set_temperature(int(initial_max_temp))
         
         #=======================================================================
         # Serial Port listener
         # Initialize the HW listener... it runs in a different thread.
         #=======================================================================
-        ser_comm = Serial_communication(port_number = 5,app_logic = self)
+        self.ser_comm = Serial_communication(port_number = 5,app_logic = self)
         
-        t = threading.Thread(target = ser_comm.read_from_port)
+        t = threading.Thread(target = self.ser_comm.read_from_port)
         t.daemon = True
         t.start()
         print "Serial Listener started!"
+        
+        
         
     def compare_temperatures(self):
         '''
@@ -51,6 +55,8 @@ class App_model(object):
         '''
         if self.current_temp.get_temperature() >= self.max_temp.get_temperature():
             self.alarm_turn_on()
+        #elif self.alarm.is_alarm():
+            
             
     
     #===========================================================================

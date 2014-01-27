@@ -14,8 +14,14 @@ class Temp_queue(object):
         super(Temp_queue, self).__init__()
         self.cola = Queue.Queue(queue_size)
         
+        # I'm cheating here... this is so the graph is properly
+        # plotted (model and view should not know each other.........
+        #for index in range(queue_size):
+            #print "queueing..."
+            #self.cola.put_nowait(0.001)
+        
     def put_in_queue(self, temperature_value):
-        print "Im saving", temperature_value, "in the queue..."
+        #print "Im saving", temperature_value, "in the queue..."
         try:
             self.cola.put_nowait(temperature_value) #add the element in the queue
         

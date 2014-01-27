@@ -16,13 +16,14 @@ import time
 import sys
 from PySide.QtGui import QMainWindow, QApplication
 from views.main_window_handler import MainWindow
+from controllers.main_controller import App_controller
     
 if __name__ == "__main__":
 
     #===========================================================================
     # Instantiate the Model
     #===========================================================================
-    app_model = App_model(queue_size = 20, initial_max_temp = 22)
+    app_model = App_model(queue_size = 20, initial_max_temp = 33)
     
     #===========================================================================
     # Start the View (UI) objects
@@ -30,25 +31,26 @@ if __name__ == "__main__":
     q_app = QApplication(sys.argv)
 
     #I shouldn't pass the queue to the View this way....
-    main = MainWindow(temp_queue = app_model.temp_queue)
+    main_window_view = MainWindow()
+    main_window_view.set_queue(temperature_queue = app_model.temp_queue)
     
-    
+    main_window_view.deactivate_alarm_button.setVisible(False)
     
     #===========================================================================
     # Start the Controller
     #===========================================================================
-    
+    app_controller = App_controller(app_model, main_window_view)
     
     
     
     #===========================================================================
     # Show the View
     #===========================================================================
-    main.show()
+    main_window_view.show()
     
     #set sys.exit (required by QApplication)
     sys.exit(q_app.exec_())
     
     
-    while True:
-        time.sleep(10)
+    #while True:
+     #   time.sleep(10)

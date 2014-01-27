@@ -15,6 +15,7 @@ matplotlib.rcParams['backend.qt4']='PySide'
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
 
+import numpy
 
 class Temperature_graph():
 
@@ -39,7 +40,7 @@ class Temperature_graph():
         #Add a timer to redraw the graph
         #The timer is not optimal, and this should run on a separate thread.
         #The graph should be updated on demand... each time a new value is read from the serial port...
-        #self.plot_timer = self.canvas.new_timer(interval=100)
+        #self.plot_timer = self.canvas.new_timer(interval=50)
         #self.plot_timer.add_callback(self.redraw_graph)
         
         
@@ -61,27 +62,31 @@ class Temperature_graph():
     def get_layout(self):
         return self.layout
     
-    def redraw_graph(self):
+    def redraw_graph(self, new_value_read):
+    #def redraw_graph(self):
         '''
         This method redraws the graph. It's called everytime the plot_timer
         reaches zero.
         '''
-        '''
-        mu, sigma = 100, 15
-        x = mu + sigma * np.random.randn(1000)
         #print "I enter here... x =", x
         
         # the histogram of the data
         #x should be my queue...
-        n, bins, patches = plt.hist(x, 50, normed=1, facecolor='b', alpha=0.75)
+        data = self.queue.get_cola()
+        #n, bins, patches = plt.hist(list(data), 50, normed=1, facecolor='b', alpha=0.75)
+        #matplotlib.pyplot.bar(left, height, width=0.8, bottom=None, hold=None, **kwargs)
+        N = numpy.arange(len(data)) #number of data to be plotted
+        #print "N = ", N
         
-        
-        plt.xlabel('Smarts')
-        plt.ylabel('Probability')
+        bar_plot = plt.bar( N, height = data, width = 0.8, bottom = None, color = 'c', hold = None)
+        #plt.xlabel('Smarts')
+        plt.ylabel('Valor de Temperatura')
         #plt.title('Histogram of IQ')
         #plt.text(60, .025, r'$\mu=100,\ \sigma=15$')
-        plt.axis([40, 160, 0, 0.03])
+        #plt.axis([40, 160, 0, 0.03])
         plt.grid(True)
+        plt.xlim(0, 20)
+        plt.ylim(0, 45)
         
         #I erase the old data graph, because I'm redrawing it with new values.
         plt.hold(False)
@@ -89,9 +94,12 @@ class Temperature_graph():
         #Re-draw the graph (with the new values)
         self.canvas.draw()
         #plt.show()
+        
+        
         '''
         # random data
         data = self.queue.get_cola()
+        print "cola = ", list(self.queue.get_cola())
         #data = [10,17,30,22,6,3,34,24,15]
         #random.random() for i in range(10)
         # create an axis
@@ -105,7 +113,12 @@ class Temperature_graph():
         
         #Set rango de valores del eje y
         ax.set_ylim([0,42])
+        ax.set_xlim([-1,20])
         ax.set_title("Variacion de Temperatura")
+        #ax.xlabel('Smarts')
         
         # refresh canvas
         self.canvas.draw()
+        '''
+        
+        

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main_window.ui'
 #
-# Created: Mon Jan 20 21:00:16 2014
+# Created: Sat Jan 25 23:49:43 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,8 @@ class Ui_MainWindow(object):
 "\n"
 "QFrame{\n"
 "    background-color: rgb(250, 250, 250);\n"
-"}")
+"}\n"
+"")
         self.main_frame.setFrameShape(QtGui.QFrame.StyledPanel)
         self.main_frame.setFrameShadow(QtGui.QFrame.Raised)
         self.main_frame.setObjectName("main_frame")
@@ -154,6 +155,30 @@ class Ui_MainWindow(object):
         self.degree_label_2.setStyleSheet("color: rgb(68, 68, 68);")
         self.degree_label_2.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.degree_label_2.setObjectName("degree_label_2")
+        self.deactivate_alarm_button = QtGui.QToolButton(self.max_temp_frame)
+        self.deactivate_alarm_button.setEnabled(True)
+        self.deactivate_alarm_button.setGeometry(QtCore.QRect(160, 80, 31, 31))
+        self.deactivate_alarm_button.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
+        self.deactivate_alarm_button.setStyleSheet("QToolButton#deactivate_alarm_button {\n"
+"    background-color: rgb(250, 250, 250);;\n"
+"    font: 10pt \"Trebuchet MS\";\n"
+"    border:none;\n"
+"    /*border-bottom:1px solid black;*/\n"
+"}\n"
+"QToolButton#deactivate_alarm_button:hover {\n"
+"    background-color: rgb(209, 209, 227);\n"
+"}\n"
+"QToolButton#deactivate_alarm_button:active {\n"
+"\n"
+"}")
+        self.deactivate_alarm_button.setText("")
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap(":/icons/cancel_alarm_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        icon2.addPixmap(QtGui.QPixmap(":/icons/cancel_alarm_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.deactivate_alarm_button.setIcon(icon2)
+        self.deactivate_alarm_button.setIconSize(QtCore.QSize(18, 18))
+        self.deactivate_alarm_button.setArrowType(QtCore.Qt.NoArrow)
+        self.deactivate_alarm_button.setObjectName("deactivate_alarm_button")
         self.title_label = QtGui.QLabel(self.main_frame)
         self.title_label.setGeometry(QtCore.QRect(80, 10, 561, 71))
         font = QtGui.QFont()
@@ -182,9 +207,9 @@ class Ui_MainWindow(object):
 "\n"
 "}")
         self.app_icon_button.setText("")
-        icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap(":/icons/thermometer_icon_2.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.app_icon_button.setIcon(icon2)
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap(":/icons/thermometer_icon_2.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.app_icon_button.setIcon(icon3)
         self.app_icon_button.setIconSize(QtCore.QSize(60, 60))
         self.app_icon_button.setObjectName("app_icon_button")
         MainWindow.setCentralWidget(self.centralwidget)
@@ -209,6 +234,10 @@ class Ui_MainWindow(object):
         self.action_set_new_max_temp.setObjectName("action_set_new_max_temp")
         self.action_exit_app = QtGui.QAction(MainWindow)
         self.action_exit_app.setObjectName("action_exit_app")
+        self.actionDesactivar_alarma = QtGui.QAction(MainWindow)
+        self.actionDesactivar_alarma.setEnabled(False)
+        self.actionDesactivar_alarma.setObjectName("actionDesactivar_alarma")
+        self.menuFile.addAction(self.actionDesactivar_alarma)
         self.menuFile.addAction(self.action_save_temperature_chart)
         self.menuFile.addAction(self.action_set_new_max_temp)
         self.menuFile.addSeparator()
@@ -239,15 +268,18 @@ class Ui_MainWindow(object):
         self.degree_label_2.setToolTip(QtGui.QApplication.translate("MainWindow", "Temperatura Actual", None, QtGui.QApplication.UnicodeUTF8))
         self.degree_label_2.setWhatsThis(QtGui.QApplication.translate("MainWindow", "Temperatura Actual", None, QtGui.QApplication.UnicodeUTF8))
         self.degree_label_2.setText(QtGui.QApplication.translate("MainWindow", "°", None, QtGui.QApplication.UnicodeUTF8))
+        self.deactivate_alarm_button.setToolTip(QtGui.QApplication.translate("MainWindow", "Desactivar alarma", None, QtGui.QApplication.UnicodeUTF8))
+        self.deactivate_alarm_button.setStatusTip(QtGui.QApplication.translate("MainWindow", "Haz click en este botón para desactivar la alarma", None, QtGui.QApplication.UnicodeUTF8))
         self.title_label.setText(QtGui.QApplication.translate("MainWindow", "   Monitor de Temperaturas", None, QtGui.QApplication.UnicodeUTF8))
         self.menuFile.setTitle(QtGui.QApplication.translate("MainWindow", "Archivo", None, QtGui.QApplication.UnicodeUTF8))
         self.menuHelp.setTitle(QtGui.QApplication.translate("MainWindow", "Ayuda", None, QtGui.QApplication.UnicodeUTF8))
-        self.action_about.setText(QtGui.QApplication.translate("MainWindow", "Acerca de...", None, QtGui.QApplication.UnicodeUTF8))
+        self.action_about.setText(QtGui.QApplication.translate("MainWindow", "About...", None, QtGui.QApplication.UnicodeUTF8))
         self.action_save_temperature_chart.setText(QtGui.QApplication.translate("MainWindow", "Guardar historial de Temperaturas", None, QtGui.QApplication.UnicodeUTF8))
         self.action_save_temperature_chart.setShortcut(QtGui.QApplication.translate("MainWindow", "Ctrl+S", None, QtGui.QApplication.UnicodeUTF8))
         self.action_app_tutorial.setText(QtGui.QApplication.translate("MainWindow", "Cómo utilizar la aplicación...", None, QtGui.QApplication.UnicodeUTF8))
         self.action_app_tutorial.setShortcut(QtGui.QApplication.translate("MainWindow", "Ctrl+H", None, QtGui.QApplication.UnicodeUTF8))
         self.action_set_new_max_temp.setText(QtGui.QApplication.translate("MainWindow", "Nuevo valor de Temperatura Límite...", None, QtGui.QApplication.UnicodeUTF8))
         self.action_exit_app.setText(QtGui.QApplication.translate("MainWindow", "Salir de la aplicación", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionDesactivar_alarma.setText(QtGui.QApplication.translate("MainWindow", "Desactivar alarma", None, QtGui.QApplication.UnicodeUTF8))
 
 import resource_file_rc

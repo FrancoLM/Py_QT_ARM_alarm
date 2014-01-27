@@ -22,7 +22,7 @@ class Serial_communication(QObject):
     port_number = 99
     value_read = None
     
-    value_read_signal = Signal()
+    value_read_signal = Signal(str)
     
     def __init__(self, port_number, app_logic):
         '''
@@ -67,8 +67,9 @@ class Serial_communication(QObject):
         '''
         #Uncomment this when the HW - PC communication works
         try:            
-            line = self.ser.readline()   # read a '\n' terminated line
-            return line
+            self.value_read = self.ser.readline()   # read a '\n' terminated line
+            self.value_read_signal.emit(self.value_read)
+            return self.value_read
         except Exception, e:
             #Maybe I could not read because there is no data? Check documentation!
             
@@ -78,12 +79,17 @@ class Serial_communication(QObject):
         while True:
             
             self.value_read = random.randint(5, 35)
-            self.value_read_signal.emit()
-            print "I'm reading...", self.value_read, "and signal emmited"
+            self.value_read = str(self.value_read)
+            self.value_read = int(self.value_read)
+            self.value_read_signal.emit(str(self.value_read))
+            self.app_logic.update_current_temp(self.value_read)
+            #print "I'm reading...", self.value_read, "and signal emmited"
+            '''
             try:
                 self.app_logic.update_current_temp(self.value_read)
             except Exception, e:
                 print "App is none"
+                '''
             time.sleep(1)
     
     

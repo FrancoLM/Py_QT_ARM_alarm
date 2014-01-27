@@ -3,6 +3,8 @@ Created on Jan 17, 2014
 
 @author: fmartinez1
 '''
+from PySide.QtCore import QObject, Signal
+
 class TempNotSetError(Exception):
     def __init__(self, value):
         self.value = value
@@ -11,12 +13,14 @@ class TempNotSetError(Exception):
     
     
 
-class Temperature(object):
+class Temperature(QObject):
     '''
     This is the class from where Max_temp and Current_temp will inherit
     '''
+    
     _temperature = None
-
+    
+    
     def __init__(self):
         '''
         Constructor
@@ -41,10 +45,18 @@ class Temperature(object):
 
 class Max_temp(Temperature):
     
+    new_temp_signal = Signal(int)
+    
     def __init__(self):
         super(Max_temp, self).__init__()
         
-        
+    def set_temperature(self, temp_value):
+        '''
+        Temperature Setter method
+        '''
+        self._temperature = temp_value
+        self.new_temp_signal.emit(temp_value)
+        print "max temp signal"
 
 class Current_temp(Temperature):
     

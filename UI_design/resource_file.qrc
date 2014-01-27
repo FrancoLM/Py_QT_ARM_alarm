@@ -3,6 +3,6 @@
      <file>icons/tool_icon.png</file>
      <file>icons/thermometer_icon.png</file>
      <file>icons/thermometer_icon_2.png</file>
-     <file>icons/two_thermometers_icon.png</file>
+     <file>icons/cancel_alarm_icon.png</file>
  </qresource>
  </RCC>
