@@ -6,13 +6,11 @@ Created on Jan 17, 2014
 [Rethink this class/method.........]
 
 '''
-#[Do I need the imports?]
 from alarm import Alarm
 from temperature import Current_temp, Max_temp
 from temperature_queue import Temp_queue
 from models.serial_communication import Serial_communication
 import threading
-#from PySide.QtCore import QObject
 
 
 class App_model(object):

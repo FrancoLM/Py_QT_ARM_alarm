@@ -7,14 +7,11 @@ This is the main script, which instantiates the MVC components and connects them
 '''
 
 from models.alarm import Alarm
-from models.temperature import Max_temp, Current_temp
-from models.serial_communication import Serial_communication
-from models.temperature_queue import Temp_queue
 from models.app_model import App_model
-import time
+#import time
 
 import sys
-from PySide.QtGui import QMainWindow, QApplication
+from PySide.QtGui import QApplication
 from views.main_window_handler import MainWindow
 from controllers.main_controller import App_controller
     
@@ -27,6 +24,7 @@ if __name__ == "__main__":
     #===========================================================================
     # Instantiate the Model
     #===========================================================================
+    # I need to read this max temp from the HW 
     app_model = App_model(queue_size = 20, initial_max_temp = 33)
     
     

@@ -12,7 +12,6 @@ from PySide.QtCore import Signal
 
 from temperature_plot import Temperature_graph
 from views.max_temp_dialog_handler import Max_temp_dialog
-from models.temperature import Max_temp
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -65,14 +64,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         max_temp_dialog = Max_temp_dialog()
         max_temp_dialog.exec_()
         
-        self.new_max_temp_signal.emit(int(max_temp_dialog.lineEdit.text()))
+        try:
+            self.new_max_temp_signal.emit(int(max_temp_dialog.lineEdit.text()))
+        except:
+            self.new_max_temp_signal.emit(int(self.max_temp_value.text()))
         #self.max_temp_value.setText(max_temp_dialog.lineEdit.text())
         #max_temp_dialog.new_max_temp_signal.connect(self.max_temp_value.setText)
     
     
     def update_max_temp_ui(self, new_value):
         self.max_temp_value.setText(str(new_value))
-        print "max temp UI updated"
+        #print "max temp UI updated"
     
     def update_current_temp_ui(self, new_value):
         self.current_temp_value.setText(new_value)
@@ -132,7 +134,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def closeEvent(self, event):
         print "Closing application..."
         
-        #Emit close application signal
+        #Emit clo se application signal
         self.close_app_signal.emit()
         
         event.accept() # let the window close

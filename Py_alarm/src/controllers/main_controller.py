@@ -9,7 +9,6 @@ class App_controller(object):
     '''
     This class represents the application Controller part
     of the MVC pattern. This class defines the signal connections.
-    
     '''
     
     def __init__(self, model, view):
@@ -18,21 +17,12 @@ class App_controller(object):
         self.model = model
         self.view = view
         
-        # I have to tell the View to update the graph whenever
-        # a new value in the Serial communication (Model)
-        # is read.
-        
-        #Pass the model's queue to the view
+        #Pass the model's queue to the view, so it can print its contents
         view.set_queue(temperature_queue = model.temp_queue)
-    
-        #view.deactivate_alarm_button.setVisible(False)
-        
         
         #=======================================================================
         # Signal Definition
         #=======================================================================
-        
-        # Update the Maximum temperature UI value
         
         # When a new temperature value is read, update the view's current temp
         self.model.ser_comm.value_read_signal.connect(self.view.update_current_temp_ui)
@@ -46,22 +36,19 @@ class App_controller(object):
         self.model.max_temp.set_temperature(self.model.max_temp.get_temperature())
         
         
-        # When the alarm is activated
+        # Update UI when the alarm is activated
         self.model.alarm.alarm_signal.connect(self.view.change_alarm_window_style)
-        # To deactivate alarm:
+        # Deactivate alarm:
         self.view.deactivate_alarm_button.clicked.connect(self.model.alarm_turn_off)
         
-        
+        # Update the maximum temperature entered by the user
         self.view.new_max_temp_signal.connect(self.model.max_temp.set_temperature)
-        
         
         #Close Serial port when application is closed
         self.view.close_app_signal.connect(self.model.ser_comm.close_port)
         
-        # Close application view -> view should be here???
-        #self.view.action_exit_app.triggered.connect(self.view.quit_application)
-        
-        
+        # need a signal for reading the initial maximum temp from the serial connection with the HW 
+        # and setting it.
         
         
         

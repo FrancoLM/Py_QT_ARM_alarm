@@ -56,7 +56,7 @@ class Max_temp(Temperature):
         '''
         self._temperature = temp_value
         self.new_temp_signal.emit(temp_value)
-        print "max temp signal"
+        #print "max temp signal"
 
 class Current_temp(Temperature):
     
