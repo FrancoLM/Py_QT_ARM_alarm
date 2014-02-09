@@ -19,6 +19,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     
     new_max_temp_signal = Signal(int)
+    close_app_signal = Signal()
     
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
@@ -27,6 +28,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #Creates the UI made with Qt Designer
         self.setupUi(self)
         self.setFixedSize(self.width(), self.height()) # Can't be resized
+        
+        #Set the alarm button's initial state to invisible 
+        self.deactivate_alarm_button.setVisible(False)
         
         #=======================================================================
         #  Add the plot to the main window
@@ -45,6 +49,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.set_max_temp_button.clicked.connect(self.show_max_temp_dialog)
         self.action_set_new_max_temp.triggered.connect(self.show_max_temp_dialog)
         
+        
+        
+        self.action_exit_app.triggered.connect(self.quit_application)
         #=======================================================================
         #=======================================================================
     
@@ -82,13 +89,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         '''
         self.figure.set_graph_queue(temperature_queue)
     
-    def change_alarm_window_style(self, status):
+    def change_alarm_window_style(self, alarm_on):
         '''
         This method updates the main window's Stylesheet
         when the alarm is activated.
-        rgb(255, 140, 142);
         '''
-        if status:
+        if alarm_on:
+            # Alarm is activated
             self.actionDesactivar_alarma.setEnabled(True)
             self.main_frame.setStyleSheet("QFrame#main_frame{\n"
                 "    background-color: rgb(255, 140, 142);\n"
@@ -101,6 +108,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.deactivate_alarm_button.setVisible(True)
         
         else:
+            # Alarm is deactivated
             self.actionDesactivar_alarma.setEnabled(False)
             self.main_frame.setStyleSheet("QFrame#main_frame{\n"
                 "    background-color: rgb(226, 226, 226);\n"
@@ -111,15 +119,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 "}\n"
                 "")
             self.deactivate_alarm_button.setVisible(False)
-        
     
-        
+       
     def quit_application(self):
         '''
         This method closes the application.
-        sys.exit is not the best way to close it... improve this.
         '''
-        sys.exit(0)
+        self.close()
+        #sys.exit(0)
+        
+    #Overloaded method
+    def closeEvent(self, event):
+        print "Closing application..."
+        
+        #Emit close application signal
+        self.close_app_signal.emit()
+        
+        event.accept() # let the window close
+
 
 if __name__ == '__main__':
     #Interfaz de usuario

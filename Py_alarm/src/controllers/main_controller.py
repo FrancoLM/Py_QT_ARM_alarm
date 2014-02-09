@@ -6,6 +6,11 @@ This script will call the app logic and will connect the model and the view.
 '''
 
 class App_controller(object):
+    '''
+    This class represents the application Controller part
+    of the MVC pattern. This class defines the signal connections.
+    
+    '''
     
     def __init__(self, model, view):
         super(App_controller, self).__init__()
@@ -16,15 +21,11 @@ class App_controller(object):
         # I have to tell the View to update the graph whenever
         # a new value in the Serial communication (Model)
         # is read.
+        
+        #Pass the model's queue to the view
+        view.set_queue(temperature_queue = model.temp_queue)
     
-        #call view.set_queue(model.queue)
-        
-        #connect the model.signal_conn.value_read_signal
-        
-        
-        
-        #self.action_exit_app.triggered.connect(self.quit_application)
-        
+        #view.deactivate_alarm_button.setVisible(False)
         
         
         #=======================================================================
@@ -54,8 +55,11 @@ class App_controller(object):
         self.view.new_max_temp_signal.connect(self.model.max_temp.set_temperature)
         
         
+        #Close Serial port when application is closed
+        self.view.close_app_signal.connect(self.model.ser_comm.close_port)
+        
         # Close application view -> view should be here???
-        self.view.action_exit_app.triggered.connect(self.view.quit_application)
+        #self.view.action_exit_app.triggered.connect(self.view.quit_application)
         
         
         

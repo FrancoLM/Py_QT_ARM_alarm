@@ -89,7 +89,8 @@ class Serial_communication(QObject):
                 self.app_logic.update_current_temp(self.value_read)
             except Exception, e:
                 print "App is none"
-                '''
+            '''
+            #The time it sleeps should be informed by the HW...
             time.sleep(1)
     
     
@@ -103,8 +104,8 @@ class Serial_communication(QObject):
         This method closes the Serial connection, if it was opened. If it wasn't, 
         it does nothing.
         '''
+        print "Closing port..."
         try:
-            
             self.ser.close()   # close port
             print "Port", self.ser.name, "closed successfully"
         except Exception, e:
