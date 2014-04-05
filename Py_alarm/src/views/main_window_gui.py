@@ -251,7 +251,7 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "Temperature Center", None, QtGui.QApplication.UnicodeUTF8))
+        MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "Monitor de Temperaturas", None, QtGui.QApplication.UnicodeUTF8))
         self.chart_temp_label.setText(QtGui.QApplication.translate("MainWindow", "Gráfico de Temperaturas", None, QtGui.QApplication.UnicodeUTF8))
         self.current_temp_value.setToolTip(QtGui.QApplication.translate("MainWindow", "Temperatura Actual", None, QtGui.QApplication.UnicodeUTF8))
         self.current_temp_value.setWhatsThis(QtGui.QApplication.translate("MainWindow", "Temperatura Actual", None, QtGui.QApplication.UnicodeUTF8))
