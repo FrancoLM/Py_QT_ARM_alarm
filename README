@@ -4,6 +4,15 @@ Proyecto para la materia Sistemas de Computación, de la carrera Ingeniería en 
 
 
 Paquetes requeridos para correrlo:
+Python 2.7+
 PySide
 pySerial
 numpy
+
+
+Más información:
+
+http://pyside.github.io/docs/pyside/
+http://pyserial.sourceforge.net/
+Para numpy en Windows, se recomienda instalar pythonxy:
+https://code.google.com/p/pythonxy/
