@@ -1,3 +1,9 @@
 Proyecto para la materia Sistemas de Computación, de la carrera Ingeniería en Computación.
 
 2014. Universidad Nacional de Córdoba. Facultad de Ciencias Exactas, Físicas y Naturales.
+
+
+Paquetes requeridos para correrlo:
+PySide
+pySerial
+numpy
