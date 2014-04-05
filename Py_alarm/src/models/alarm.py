@@ -24,6 +24,8 @@ class Alarm(QObject):
     def set_alarm_status(self, status):
         '''
         This method activates or deactivates the alarm.
+        It emits a signal indicating the alarm status, so any other object
+        listening to the signal updates appropiately.
         '''
         self.alarm_signal.emit(status)
         #print "I get alarm =", status
@@ -38,21 +40,6 @@ class Alarm(QObject):
                 #self._deactivate_alarm()
                 self.alarm_signal.emit(status)
         '''
-                
-    
-    #unused
-    def _activate_alarm(self):
-        '''
-        This method emits a signal to activate the alarm
-        '''
-        pass
-    
-    #unused
-    def _deactivate_alarm(self):
-        '''
-        This method emits a signal to deactivate the alarm.
-        '''
-        pass
     
     def _is_alarm(self):
         return self._alarm_status

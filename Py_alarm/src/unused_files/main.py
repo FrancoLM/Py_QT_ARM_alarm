@@ -82,7 +82,7 @@ class Python_serial(object):
                     time.sleep(0.1)
                #Borrar cuando estemos conectados!! Por las dudas (aunque es poco probable que entremos aca)
     
-    def get_cola(self):
+    def get_queue(self):
         return list(self.cola.queue)
                 
 #===============================================================================
@@ -203,7 +203,7 @@ class Window(QtGui.QDialog):
         ''' plot some random stuff '''
         
         # random data
-        data = uart_conn.get_cola()
+        data = uart_conn.get_queue()
         #data = [10,17,30,22,6,3,34,24,15]
         #random.random() for i in range(10)
         # create an axis

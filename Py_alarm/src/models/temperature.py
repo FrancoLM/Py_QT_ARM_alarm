@@ -37,8 +37,8 @@ class Temperature(QObject):
         '''
         Temperature Getter method. If temperature was not initialized, an exception is thrown.
         '''
-        if self._temperature:
-            return self._temperature
+        if self._temperature is not None:
+            return int(self._temperature)
         else:
             raise TempNotSetError("Temperature was not initialized")
 

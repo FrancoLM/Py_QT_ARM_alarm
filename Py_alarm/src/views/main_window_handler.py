@@ -64,9 +64,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         max_temp_dialog = Max_temp_dialog()
         max_temp_dialog.exec_()
         
-        try:
+        try: # Accept
             self.new_max_temp_signal.emit(int(max_temp_dialog.lineEdit.text()))
-        except:
+        except: # Cancel
             self.new_max_temp_signal.emit(int(self.max_temp_value.text()))
         #self.max_temp_value.setText(max_temp_dialog.lineEdit.text())
         #max_temp_dialog.new_max_temp_signal.connect(self.max_temp_value.setText)
@@ -132,16 +132,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
     #Overloaded method
     def closeEvent(self, event):
+        '''
+        This is an overload call to the closeEvent method, because besides
+        closing the app, we need to close the Serial port.
+        The emmited signal calls the serial_communication.close_port() method.
+        '''
         print "Closing application..."
         
-        #Emit clo se application signal
+        #Emit close application signal
         self.close_app_signal.emit()
         
         event.accept() # let the window close
 
 
 if __name__ == '__main__':
-    #Interfaz de usuario
+    # Used to test the UI
     app = QApplication(sys.argv)
 
     main = MainWindow()

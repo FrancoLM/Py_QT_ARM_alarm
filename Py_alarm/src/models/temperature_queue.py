@@ -8,10 +8,15 @@ import Queue
 
 import time
 
-class Temp_queue(object):
+class Temperature_queue(object):
+    '''
+    This class acts as a container for the last temperature values read.
+    TODO: Instead of saving temperature values (int),
+    it should store Temperature objects.
+    '''
     
     def __init__(self, queue_size):
-        super(Temp_queue, self).__init__()
+        super(Temperature_queue, self).__init__()
         self.cola = Queue.Queue(queue_size)
         
         # I'm cheating here... this is so the graph is properly
@@ -30,7 +35,7 @@ class Temp_queue(object):
             self.cola.put_nowait(temperature_value)
     
     
-    def get_cola(self):
+    def get_queue(self):
         return list(self.cola.queue)
     
 
@@ -59,7 +64,7 @@ import threading
 if __name__ == '__main__':
     
     #Thread que lee el puerto
-    test_queue = Temp_queue()
+    test_queue = Temperature_queue()
     t = threading.Thread(target = test_queue.test_method)
     t.daemon = True
     t.start()

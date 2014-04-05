@@ -72,7 +72,7 @@ class Temperature_graph():
         
         # the histogram of the data
         #x should be my queue...
-        data = self.queue.get_cola()
+        data = self.queue.get_queue()
         #n, bins, patches = plt.hist(list(data), 50, normed=1, facecolor='b', alpha=0.75)
         #matplotlib.pyplot.bar(left, height, width=0.8, bottom=None, hold=None, **kwargs)
         N = numpy.arange(len(data)) #number of data to be plotted
@@ -98,8 +98,8 @@ class Temperature_graph():
         
         '''
         # random data
-        data = self.queue.get_cola()
-        print "cola = ", list(self.queue.get_cola())
+        data = self.queue.get_queue()
+        print "cola = ", list(self.queue.get_queue())
         #data = [10,17,30,22,6,3,34,24,15]
         #random.random() for i in range(10)
         # create an axis

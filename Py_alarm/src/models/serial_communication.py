@@ -24,14 +24,14 @@ class Serial_communication(QObject):
     
     value_read_signal = Signal(str)
     
-    def __init__(self, port_number, app_logic):
+    def __init__(self, port_number):
         '''
         Constructor
         '''
         super(Serial_communication, self).__init__()
         self.port_number = port_number
         self._establish_serial_connection()
-        self.app_logic = app_logic
+        #self.app_logic = app_logic
         
     
     #===========================================================================
@@ -60,12 +60,12 @@ class Serial_communication(QObject):
         '''
         This method reads a '\n' terminated line.
         After reading it, it notifies the app logic object, so it saves this
-        value as the new current temperature value, and queues it in the temperature queue, 
-        so it can be displayed in the UI graph.
+        value as the new current temperature value, and queues it in the temperature
+        queue, so it can be displayed in the UI graph.
         It emits the signal value_read_signal. The controller handles that signal.
         '''
         '''
-        #Uncomment this when the HW - PC communication works
+        #Uncomment this when the HW - PC communication is enabled.
         try:            
             self.value_read = self.ser.readline()   # read a '\n' terminated line
             self.value_read_signal.emit(self.value_read)
@@ -79,10 +79,9 @@ class Serial_communication(QObject):
         while True:
             
             self.value_read = random.randint(5, 35)
-            self.value_read = str(self.value_read)
-            self.value_read = int(self.value_read)
             self.value_read_signal.emit(str(self.value_read))
-            self.app_logic.update_current_temp(self.value_read)
+            
+            #self.app_logic.update_current_temp(self.value_read)
             #print "I'm reading...", self.value_read, "and signal emmited"
             '''
             try:
@@ -91,7 +90,7 @@ class Serial_communication(QObject):
                 print "App is none"
             '''
             #The time it sleeps should be informed by the HW...
-            time.sleep(1)
+            time.sleep(0.5)
     
     
     #===========================================================================
@@ -113,7 +112,7 @@ class Serial_communication(QObject):
 
 
 if __name__ == '__main__':
-    comm = Serial_communication(port_number = 17, app_logic = None)
+    comm = Serial_communication(port_number = 17)
     #comm.establish_serial_connection()
     
     #print "value read:", comm.read_from_port()

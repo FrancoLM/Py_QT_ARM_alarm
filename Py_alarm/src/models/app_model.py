@@ -8,7 +8,7 @@ Created on Jan 17, 2014
 '''
 from alarm import Alarm
 from temperature import Current_temp, Max_temp
-from temperature_queue import Temp_queue
+from temperature_queue import Temperature_queue
 from models.serial_communication import Serial_communication
 import threading
 
@@ -29,7 +29,7 @@ class App_model(object):
         self.alarm = Alarm()
         self.max_temp = Max_temp()
         self.current_temp = Current_temp()
-        self.temp_queue = Temp_queue(queue_size = 20)
+        self.temp_queue = Temperature_queue(queue_size = 20)
         
         self.max_temp.set_temperature(int(initial_max_temp))
         
@@ -37,15 +37,21 @@ class App_model(object):
         # Serial Port listener
         # Initialize the HW listener... it runs in a different thread.
         #=======================================================================
-        self.ser_comm = Serial_communication(port_number = 5,app_logic = self)
+        self.ser_comm = Serial_communication(port_number = 5)
         
+        # When a new temperature value is read, update the view's current temp
+        self.ser_comm.value_read_signal.connect(self.update_current_temp)
+        '''
+        In order to be able to read the port, without making the UI freeze, the
+        port listener must run in a different thread.
+        '''
         t = threading.Thread(target = self.ser_comm.read_from_port)
-        t.daemon = True
+        t.daemon = True # Not a main thread
         t.start()
         print "Serial Listener started!"
         
         
-        
+    #===========================================================================    
     def compare_temperatures(self):
         '''
         This method compares the current temperature and the max temperature defined.
@@ -67,12 +73,14 @@ class App_model(object):
         #Signal to sound alarm
         self.alarm.set_alarm_status(True)
     
-    
+    #===========================================================================
     def update_current_temp(self, new_value):
+        new_value = int(new_value)
         self.current_temp.set_temperature(new_value)
         self.temp_queue.put_in_queue(new_value)
         self.compare_temperatures()
-    
+
+# This is for testing purposes.
 import time    
 if __name__ == "__main__":
     
