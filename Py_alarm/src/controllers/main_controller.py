@@ -25,7 +25,7 @@ class App_controller(object):
         #=======================================================================
         
         # When a new temperature value is read, update the view's current temp
-        self.model.ser_comm.value_read_signal.connect(self.view.update_current_temp_ui)
+        self.model.update_current_temp_signal.connect(self.view.update_current_temp_ui)
         
         # When a new temperature value is read, update the view's graph
         self.model.ser_comm.value_read_signal.connect(self.view.figure.redraw_graph)

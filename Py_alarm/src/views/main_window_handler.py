@@ -77,7 +77,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #print "max temp UI updated"
     
     def update_current_temp_ui(self, new_value):
-        self.current_temp_value.setText(new_value)
+        str_value = str(new_value) 
+        self.current_temp_value.setText(str_value)
     
     def turn_off_alarm_action(self):
         self.change_alarm_window_style(False)

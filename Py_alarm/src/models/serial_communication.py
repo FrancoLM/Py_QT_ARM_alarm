@@ -24,12 +24,11 @@ class Serial_communication(QObject):
     
     value_read_signal = Signal(str)
     
-    def __init__(self, port_number):
+    def __init__(self):
         '''
         Constructor
         '''
         super(Serial_communication, self).__init__()
-        self.port_number = port_number
         self._establish_serial_connection()
         #self.app_logic = app_logic
         
@@ -42,17 +41,17 @@ class Serial_communication(QObject):
         The method takes the port number and checks if it can connect.
         Note that port_number 0 == COM1
         '''
-        #self.port_number = port_number
-        print "Trying to connect to Serial Port number", self.port_number + 1
-        try:
-            self.ser = serial.Serial(self.port_number, 115200, timeout=10)
-            #self.ser = serial.Serial(self.port_number)  # open first serial port
-            print "Connected to", self.ser.name   # check which port was really used
-
-            #cola = Queue(10)
-        except Exception, e:
-            #I should emit a signal so the app displays an info message.
-            print "Error.", e
+        for i in range(0, 10):
+            self.port_number = i
+            print "Trying to connect to Serial Port number", self.port_number
+            try:
+                self.ser = serial.Serial(self.port_number, 9600, timeout=10)
+                #self.ser = serial.Serial(self.port_number)  # open first serial port
+                print "Connected to", self.ser.name   # check which port was really used
+                break
+            except Exception:
+                #I should emit a signal so the app displays an info message.
+                pass
                 
     
     #===========================================================================
@@ -64,17 +63,22 @@ class Serial_communication(QObject):
         queue, so it can be displayed in the UI graph.
         It emits the signal value_read_signal. The controller handles that signal.
         '''
-        '''
-        #Uncomment this when the HW - PC communication is enabled.
-        try:            
-            self.value_read = self.ser.readline()   # read a '\n' terminated line
-            self.value_read_signal.emit(self.value_read)
-            return self.value_read
-        except Exception, e:
-            #Maybe I could not read because there is no data? Check documentation!
-            
-            print "Could not read from port.", e
-            return None
+        
+        while True:
+            try:    
+                #print "About to read..."        
+                self.value_read = self.ser.readline()   # read a '\n' terminated line
+                #print "Read value:", str(self.value_read)
+                
+                time.sleep(0.5)
+                
+                self.value_read_signal.emit(self.value_read)
+                #return self.value_read
+            except Exception, e:
+                #Maybe I could not read because there is no data? Check documentation!
+                
+                print "Could not read from port.", e
+                return None
         '''
         while True:
             
@@ -83,15 +87,9 @@ class Serial_communication(QObject):
             
             #self.app_logic.update_current_temp(self.value_read)
             #print "I'm reading...", self.value_read, "and signal emmited"
-            '''
-            try:
-                self.app_logic.update_current_temp(self.value_read)
-            except Exception, e:
-                print "App is none"
-            '''
             #The time it sleeps should be informed by the HW...
             time.sleep(0.5)
-    
+        '''
     
     #===========================================================================
     def get_value_read(self):

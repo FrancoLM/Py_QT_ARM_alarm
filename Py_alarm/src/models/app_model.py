@@ -11,12 +11,15 @@ from temperature import Current_temp, Max_temp
 from temperature_queue import Temperature_queue
 from models.serial_communication import Serial_communication
 import threading
+from PySide.QtCore import Signal, QObject
 
 
-class App_model(object):
+class App_model(QObject):
     '''
     This class is the Model component of the MVC pattern.
     '''
+    
+    update_current_temp_signal = Signal(int)
     
     def __init__(self, queue_size, initial_max_temp):
         super(App_model, self).__init__()
@@ -37,7 +40,7 @@ class App_model(object):
         # Serial Port listener
         # Initialize the HW listener... it runs in a different thread.
         #=======================================================================
-        self.ser_comm = Serial_communication(port_number = 5)
+        self.ser_comm = Serial_communication()
         
         # When a new temperature value is read, update the view's current temp
         self.ser_comm.value_read_signal.connect(self.update_current_temp)
@@ -76,9 +79,21 @@ class App_model(object):
     #===========================================================================
     def update_current_temp(self, new_value):
         new_value = int(new_value)
+        
+        new_value = self.adjust_temp_value(new_value)
+        print "Updating current temperature value:", new_value
+        
+        self.update_current_temp_signal.emit(new_value)
+        
         self.current_temp.set_temperature(new_value)
         self.temp_queue.put_in_queue(new_value)
         self.compare_temperatures()
+
+    #===========================================================================
+    def adjust_temp_value(self, outdated_value):
+        
+        updated_value = int(outdated_value / 102.4)
+        return updated_value
 
 # This is for testing purposes.
 import time    
