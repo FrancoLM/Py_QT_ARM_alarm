@@ -70,7 +70,7 @@ class Serial_communication(QObject):
                 self.value_read = self.ser.readline()   # read a '\n' terminated line
                 #print "Read value:", str(self.value_read)
                 
-                time.sleep(0.5)
+                time.sleep(0.3)
                 
                 self.value_read_signal.emit(self.value_read)
                 #return self.value_read
